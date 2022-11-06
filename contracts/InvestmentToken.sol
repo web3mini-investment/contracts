@@ -213,15 +213,26 @@ contract CollectiveInvestmentScheme is IERC20, Ownable {
     function _refund() internal onlyRedeemable {
         require(_soldPrice != 0, "UnderlyingAsset is sold by 0 weth.");
         address maxDepositor = _depositors[0];
+        uint maxDeposit = 0;
         uint nDepositors = _depositors.length;
         uint totalWETH = _totalWETH;
-
+        require(totalWETH <= _WETHcontract.balanceOf(address(this)));
         for (uint i=0; i<nDepositors; ++i) {
             address depositor = _depositors[i];
             uint balance = _depositWETH[depositor];
             if (balance != 0) {
-
+                if (maxDeposit < balance) {
+                    maxDeposit = balance;
+                    maxDepositor = depositor;
+                }
+                uint refundAmount = (_soldPrice * balance) / totalWETH;
+                _WETHcontract.transfer(depositor, refundAmount);
+                _totalWETH = _totalWETH.sub(refundAmount);
             }
+        }
+        {
+            uint remaining = _WETHcontract.balanceOf(address(this));
+            _WETHcontract.transfer(maxDepositor, remaining);
         }
     }
     function redeem() external onlyRedeemable {
