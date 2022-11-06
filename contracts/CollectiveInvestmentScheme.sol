@@ -2,11 +2,10 @@
 pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract CollectiveInvestmentScheme is IERC20, Ownable {
+contract CollectiveInvestmentScheme is IERC20 {
     // using
     using SafeMath for uint;
 
@@ -75,7 +74,7 @@ contract CollectiveInvestmentScheme is IERC20, Ownable {
         uint orderExpiration_,
         uint maturity_
     )
-        Ownable()
+        // Ownable()
     {
         require(WETHcontract_ != address(0));
         require(underlyingAsset_ != address(0));
@@ -93,18 +92,18 @@ contract CollectiveInvestmentScheme is IERC20, Ownable {
     }
 
     // administrator
-    function setWETHcontract(address _newAddress) external onlyOwner {
-        _WETHcontract = ERC20(_newAddress); // is this safe...?
-    }
-    function renounceOwnership() public virtual override onlyOwner {
-        require(false, "Owner of this contract can not be nullable.");
-    }
-    function _transferOwnership(address _newOwner) internal override onlyOwner {
-        require(_newOwner != owner(), "Transfer to self is not allowed.");
-        require(_totalWETH <= _WETHcontract.allowance(address(this), _newOwner), "WETH transfer is not allowed due to allowance.");
-        _WETHcontract.transferFrom(address(this), _newOwner, _totalWETH);
-        super.transferOwnership(_newOwner);
-    }
+    // function setWETHcontract(address _newAddress) external onlyOwner {
+    //     _WETHcontract = ERC20(_newAddress); // is this safe...?
+    // }
+    // function renounceOwnership() public virtual override onlyOwner {
+    //     require(false, "Owner of this contract can not be nullable.");
+    // }
+    // function _transferOwnership(address _newOwner) internal override onlyOwner {
+    //     require(_newOwner != owner(), "Transfer to self is not allowed.");
+    //     require(_totalWETH <= _WETHcontract.allowance(address(this), _newOwner), "WETH transfer is not allowed due to allowance.");
+    //     _WETHcontract.transferFrom(address(this), _newOwner, _totalWETH);
+    //     super.transferOwnership(_newOwner);
+    // }
 
     // getters
     function getTotalWETH() external view returns(uint) {
