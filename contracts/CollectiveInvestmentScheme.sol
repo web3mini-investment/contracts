@@ -78,11 +78,11 @@ contract CollectiveInvestmentScheme is IERC20 {
     {
         require(WETHcontract_ != address(0));
         require(underlyingAsset_ != address(0));
-        require(block.timestamp < offerClosingTime_, "Offer closing time must be in future.");
+        require(block.timestamp <= offerClosingTime_, "Offer closing time must be in future.");
         require(offerClosingTime_ <= block.timestamp + 90 days , "Offer closing time is too future.");
-        require(offerClosingTime_ < orderExpiration_, "Order expiration must be after offer closing time.");
+        require(offerClosingTime_ <= orderExpiration_, "Order expiration must be after offer closing time.");
         require(orderExpiration_ <= offerClosingTime_ + 90 days, "Order expiration is too future of offer closing time.");
-        require(offerClosingTime_ < maturity_, "Maturity must be after offer closing time.");
+        require(offerClosingTime_ <= maturity_, "Maturity must be after offer closing time.");
         require(maturity_ <= offerClosingTime_ + 180 days, "Maturity is too future of offer closing time.");
         _WETHcontract = ERC20(WETHcontract_);
         _underlyingAsset = underlyingAsset_;
