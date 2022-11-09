@@ -225,7 +225,7 @@ contract CollectiveInvestmentSchemeV2 is ERC20 {
      * if order matched, change state into AssetHolding
      */
     function _checkPurchased() private onlyOrdering returns(bool) {
-        if (true) {
+        if (false) {
             // when order is not matched.
             return false;
         }
@@ -282,7 +282,7 @@ contract CollectiveInvestmentSchemeV2 is ERC20 {
      * if order matched, change state into AssetSold
      */    
     function _checkSold() internal onlyAssetSelling returns(bool) {
-        if (true) {
+        if (false) {
             // when order is not matched.
             return false;
         }
