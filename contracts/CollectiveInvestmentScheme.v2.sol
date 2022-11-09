@@ -178,13 +178,13 @@ contract CollectiveInvestmentSchemeV2 is ERC20 {
     /**
      * @dev Withdraw WETH from this contract with this method.
      */
-    function withdrawWETH(uint amount_) external onlyOffering beforeOfferClose onlyDepositor {
+    function withdrawDeposit(uint amount_) external onlyOffering beforeOfferClose onlyDepositor {
         _withdraw(amount_);
     }
     /**
      * @dev Withdraw all WETH from this contract.
      */
-    function withdrawWETH() external onlyOffering beforeOfferClose onlyDepositor {
+    function withdrawDeposit() external onlyOffering beforeOfferClose onlyDepositor {
         _withdraw(super.balanceOf(msg.sender));
     }
 
