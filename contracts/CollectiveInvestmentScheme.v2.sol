@@ -209,9 +209,10 @@ contract CollectiveInvestmentSchemeV2 is ERC20 {
      * after making an order, state of this contract becomes Ordering.
      */
     function makeBuyOrder() external onlyOffering {
-        require(_offerClosingTime <= block.timestamp, "Can not make buy offer before offer-closing-time");
-        require(block.timestamp < _orderExpiration, "Order expiration is already passed.");
-        require(block.timestamp < _maturity, "Maturity is already passed.");
+        // commented out for develop purpose
+        // require(_offerClosingTime <= block.timestamp, "Can not make buy offer before offer-closing-time");
+        // require(block.timestamp < _orderExpiration, "Order expiration is already passed.");
+        // require(block.timestamp < _maturity, "Maturity is already passed.");
         _makeBuyOrder();
         State originalState = _state;
         _state = State.Ordering;
@@ -242,8 +243,9 @@ contract CollectiveInvestmentSchemeV2 is ERC20 {
      * see IERC20 behavior of this contract.
      */
     function publishToken() external onlyOrdering {
-        require(block.timestamp < _orderExpiration, "Order expiration is already passed.");
-        require(block.timestamp < _maturity, "Maturity is already passed.");
+        // commented out for develop purpose
+        // require(block.timestamp < _orderExpiration, "Order expiration is already passed.");
+        // require(block.timestamp < _maturity, "Maturity is already passed.");
         require(_checkPurchased(), "Order is not matched yet");
     }
 
